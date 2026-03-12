@@ -1,5 +1,6 @@
 ﻿using LolApi.Core;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LolApi.Controllers;
 
@@ -66,5 +67,32 @@ public class ChampionsController(LolDbContext db) : ControllerBase
             return BadRequest();
         }
         
+    }
+
+    [HttpPut]
+    public ActionResult UpdateChampion([FromBody] Champion champion)
+    {
+        var res = db.Champions.FirstOrDefault(x => x.Id == champion.Id);
+        if (res == null) return NotFound();
+
+        try
+        {
+            db.Champions.Where(c => c.Id == champion.Id).ExecuteUpdate(u => u
+            .SetProperty(p => p.Name, champion.Name)
+            .SetProperty(p => p.Difficulty, champion.Difficulty)
+            .SetProperty(p => p.Role, champion.Role)
+            .SetProperty(p => p.Images, champion.Images)
+            .SetProperty(p => p.BlueEssence, champion.BlueEssence)
+            .SetProperty(p => p.DamageType, champion.DamageType)
+            .SetProperty(p => p.Lane, champion.Lane)
+            .SetProperty(p => p.Description, champion.Description)
+            );
+
+            return NoContent();
+        }
+        catch
+        {
+            return BadRequest();
+        }
     }
 }
