@@ -31,3 +31,25 @@ Accept: application/json
 ###
 DELETE {{LolApi_HostAddress}}/api/Champions/1
 Accept: application/json
+
+
+###
+PUT {{LolApi_HostAddress}}/api/Champions
+Content-Type: application/json
+Accept: application/json
+{
+  "id": 2,
+   "name": "AAtrox",
+    "role": "marksman",
+    "lane": "bot",
+    "difficulty": 7,
+    "blueEssence": 5000,
+    "damageType": "physical",
+    "images": [
+      "Jhin_0.jpg",
+      "Jhin_4.jpg",
+      "Jhin_25.jpg",
+      "Jhin_55.jpg"
+    ],
+    "description": "A precision-based marksman who thrives on planning, execution, and deadly fourth shots."
+}
